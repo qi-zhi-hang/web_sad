@@ -12,9 +12,30 @@
           </div>
         </el-header>
         <el-container >
-          <el-aside width="200px" class="aside_home">Aside</el-aside>
+          <el-aside width="200px" class="aside_home">
+               <el-col :span="24">
+
+              <el-menu
+                default-active="2"
+                class="el-menu-vertical-demo"
+                @open="handleOpen"
+                @close="handleClose">
+                <el-submenu index="1">
+                  <template slot="title">
+                    <i class="el-icon-location"></i>
+                    <span>用户管理</span>
+                  </template>
+                    <el-menu-item index="1-1">用户列表</el-menu-item>
+                    <el-menu-item index="1-2">用户组</el-menu-item>
+                </el-submenu>
+              </el-menu>
+          </el-col>
+              
+          </el-aside>
           <el-container>
-            <el-main class="main">Main</el-main>
+            <el-main class="main">
+                
+            </el-main>
             <el-footer class="footer">Footer</el-footer>
           </el-container>
         </el-container>
@@ -29,9 +50,7 @@ export default {
   name: 'Home',
 
   created(){
-    this.$http.get('/api/menu').then(data=>{
-      console.log(data)
-    })
+   
   }
   
 }
@@ -65,7 +84,7 @@ export default {
     }
   }
   .aside_home{
-    background-color: rgb(76, 199, 199);
+   
   }
   .main{
     background-color: aliceblue;
