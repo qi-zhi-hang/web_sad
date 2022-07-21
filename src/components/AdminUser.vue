@@ -38,7 +38,7 @@
       width="80%"
       center
     >
-      <el-form ref="form" :model="form" :rules="addRule" label-width="80px">
+      <el-form ref="form" :model="form" :rules="addRule" label-width="80px" class="demo-addRule">
         <el-form-item label="管理员名称">
           <el-input v-model="form.adminNname"></el-input>
         </el-form-item>
@@ -58,7 +58,7 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="centerDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="centerDialogVisible = false"
+        <el-button type="primary" @click="onSubmit"
           >确 定</el-button
         >
       </span>
@@ -132,8 +132,31 @@ export default {
     addAdmin() {
       this.centerDialogVisible = true;
     },
-    onSubmit() {},
-    addOnSubmit() {},
+    onSubmit() {
+        this.$refs.form.validate(async valid=>{
+            console.log(valid)
+					if(!valid){
+						this.$message.error("参数不足")
+						return
+					}
+
+				 await	this.$http.post('/api/add_admin',{user_name:this.form.userName,pwd:this.form.password,group_id:this.form.grop_id}).then(res=>{
+						const {data} = res
+						if(data.code === 200){
+								this.$message.success("新增成功")
+						}else{
+							this.$message.error("登录失败")
+						}
+					})
+					
+				})	
+    
+
+        this.centerDialogVisible =  false
+    },
+    addOnSubmit() {
+
+    }
   },
 };
 </script>

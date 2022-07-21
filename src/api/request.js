@@ -1,16 +1,16 @@
 import axios from "axios";
-
-import { Message } from "element-ui";
-
+import QS from 'qs';
 // 1.创建axios事例
 const service = axios.create({
   baseURL: 'http://html.zhangjunbai.com',
   timeout: 30 * 1000,
+  
 });
 
+
+
 service.interceptors.request.use(config => {
-  config.data = JSON.stringify(config.data)
-  config.headers = {'Content-Type': 'application/json'}
+  config.data = QS.stringify(config.data)
   const token = window.sessionStorage.getItem('token')
   if (token) {
     config.headers.token = token

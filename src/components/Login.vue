@@ -53,7 +53,7 @@
 						return
 					}
 
-				 await	this.$http.post('/api/login',this.ruleForm2).then(res=>{
+				 await	this.$http.post('/api/login',{user_name:this.ruleForm2.user_name,password:this.ruleForm2.password}).then(res=>{
 						const {data} = res
 						if(data.code === 200){
 								const token = data.data.token
