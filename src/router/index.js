@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 // 登录页面
 import Login from '../components/Login.vue'
-import Test from '../components/Test.vue'
+import AdminUser from '../components/AdminUser'
 
 Vue.use(VueRouter)
 
@@ -11,12 +11,13 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
-  },
-  {
-    path: '/test',
-    name: 'Test',
-    component: Test
+    component: Home,
+    children: [{
+      path: "/admin_user",
+      name: 'AdminUser',
+      component: AdminUser
+    }
+    ]
   },
   {
     path: '/about',
@@ -26,10 +27,10 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
-	{
-		path:'/login',
-		component: Login
-	}
+  {
+    path: '/login',
+    component: Login
+  }
 ]
 
 const router = new VueRouter({
@@ -37,12 +38,12 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const token = window.sessionStorage.getItem('token')
-  // if (to.path === '/login') return next();
-  // if (!token) {
-  //   return next('/login')
-  // }
-  next()
+    const token = window.sessionStorage.getItem('token')
+    if (to.path === '/login') return next();
+    if (!token) {
+      return next('/login')
+    }
+    next()
 })
 
 export default router

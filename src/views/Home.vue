@@ -25,7 +25,7 @@
                     <i class="el-icon-location"></i>
                     <span>用户管理</span>
                   </template>
-                    <el-menu-item index="1-1">用户列表</el-menu-item>
+                    <el-menu-item @click="direct('/admin_user')" index="1-1">用户列表</el-menu-item>
                     <el-menu-item index="1-2">用户组</el-menu-item>
                 </el-submenu>
               </el-menu>
@@ -34,7 +34,7 @@
           </el-aside>
           <el-container>
             <el-main class="main">
-                
+                <router-view></router-view>
             </el-main>
             <el-footer class="footer">Footer</el-footer>
           </el-container>
@@ -51,6 +51,17 @@ export default {
 
   created(){
    
+  },
+  methods:{
+    direct(url){
+      this.$router.push(url)
+    },
+    handleOpen(){
+
+    },
+    handleClose(){
+      
+    }
   }
   
 }
@@ -83,9 +94,7 @@ export default {
       
     }
   }
-  .aside_home{
-   
-  }
+  
   .main{
     background-color: aliceblue;
   }
